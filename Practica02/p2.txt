@@ -1,0 +1,73 @@
+1. Explica en detalle qu´e hacen las siguientes instrucciones. Si est´an sint´acticamente mal
+escritas, indica el motivo:
+movl $1, %eax mueve numero literal a registro %eax
+movl 1, %eax  mal, para indicar un numero literal hace falta $ y un registro hace falta %
+movl $1, eax   mal, eax hace falta %
+movl 1, eax    mal, hace falta $ para 1 y % para eax
+
+Dada la siguiente secuencia de instrucciones:
+cmpl %eax, %ebx
+jge fin
+¿en qu´e condiciones se efectua el salto?
+compara %eax y %ebx, salta si son diferentes.
+
+ Dado el siguiente c´odigo en C donde a, b y i son variables globales enteras:
+for (i=0;i<200;i++)
+	if (a>b)
+		a=a-(b+a)/2;
+Realiza la traducci´on a c´odigo ensamblador.
+
+
+for: cmpl %a %b
+js for
+movl %a %eax
+addl %b, %eax
+movl $0, %edx
+divl $2
+subl %a, %eax
+addl $1, %i
+cmpl $200, %i
+js for
+
+5. Dado el siguiente segmento de c´odigo ensamblador y las mismas variables del apartado
+anterior:
+80483fd: jmp 8048433
+80483ff: mov a,%edx
+8048405: mov b,%eax
+804840a: cmp %eax,%edx
+804840c: je 8048426
+804840e: mov b,%edx
+8048414: mov a,%eax
+8048419: sub %eax,%edx
+804841b: mov %edx,%eax
+804841d: add %eax,%eax
+804841f: add %edx,%eax
+8048421: mov %eax,a
+8048426: mov i,%eax
+804842b: sub $0x1,%eax
+804842e: mov %eax,i
+8048433: mov i,%eax
+8048438: test %eax,%eax
+804843a: jg 80483ff
+Realiza la traducci´on a c´odigo C.
+
+
+
+while(i != 0){
+	if(a != b){
+		a = (b-a)*3;
+	}
+	i = i-1;
+}
+
+6. Explica cu´al es la diferencia entre un breakpoint y un watchpoint.
+Un breakpoint para el programa en una linea determinada del codigo, en cambio un watchpoint solo para el programa al satisfacer alguna condición determinada.
+
+7. Explica c´omo se puede hacer en ddd que un breakpoint s´olo se pare cuando se ha
+ejecutado 15 veces.
+
+En el apartado del breakpoint properties cambiando el valor del variable Ignore Count a 15
+
+8. Explica c´omo se puede hacer en ddd para modificar el contenido de una direcci´on de memoria.
+
+Podemos modificar los valores haciendo un click en el variable deseado y pulsando el set para poner el valor que queremos.
